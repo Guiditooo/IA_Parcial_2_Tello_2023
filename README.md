@@ -1,5 +1,4 @@
 # IA_Parcial_2_Tello_2023
- 
 
 Todo el código fuente del parcial deberá estar alojado en un repositorio GIT público, de lo contrario no se corregirá el parcial y la calificación será 0 (cero).
 
@@ -13,7 +12,7 @@ Los agentes de un grupo comienzan la simulación alineados de izquierda a derech
 
 Los agentes del otro grupo comienzan la simulación alineados de derecha a izquierda en la fila superior de la grilla.
 
-La simulación se ejecuta por turnos. En un torno todos los agentes de ambos grupos se mueven una casilla.
+La simulación se ejecuta por turnos. En un turno todos los agentes de ambos grupos se mueven una casilla.
 
 Cada turno, cada uno de los agentes puede moverse una casilla en las cuatro direcciones cardinales, o quedarse quieto.
 

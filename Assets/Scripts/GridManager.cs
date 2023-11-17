@@ -1,8 +1,10 @@
+using System.Collections.Generic;
+using ParcialTello.Grid;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ParcialTello.Grid
+namespace ParcialTello.Managers
 {
     public class GridManager : MonoBehaviour
     {
@@ -13,13 +15,15 @@ namespace ParcialTello.Grid
         [Header("Prefab")] 
         [SerializeField] private GameObject tilePrefab;
 
-        private Vector2 GridSize = Vector2.zero;
+        private static Vector2Int gridSize = Vector2Int.zero;
+
+        private List<Tile> tileList = new List<Tile>();
 
         private const int MIN_VALUES = 100;
 
         private void Awake()
         {
-            GridSize = Vector2.zero;
+            gridSize = Vector2Int.zero;
             initializerButton.onClick.AddListener(InitializeGrid);
         }
 
@@ -30,19 +34,35 @@ namespace ParcialTello.Grid
 
         private void InitializeGrid()
         {
-            float auxFloat = 0;
-            float.TryParse(widthInput.text, out auxFloat);
-            GridSize.x = auxFloat;
-            float.TryParse(heightInput.text, out auxFloat);
-            GridSize.y = auxFloat;
+            int auxInt = 0;
+            int.TryParse(widthInput.text, out auxInt);
+            gridSize.x = auxInt;
+            int.TryParse(heightInput.text, out auxInt);
+            gridSize.y = auxInt;
 
-            for (int i = 0; i < GridSize.y; i++)
+            for (int i = 0; i < gridSize.y; i++)
             {
-                for (int j = 0; j < GridSize.x; j++)
+                for (int j = 0; j < gridSize.x; j++)
                 {
-                    
+                    tileList.Add(new Tile());
                 }
             }
+
+            for (int i = 0; i < gridSize.x*2 ; i++)
+            {
+                Vector2Int auxFoodPos;
+                do
+                {
+                    auxFoodPos = new Vector2Int(Random.Range(0, gridSize.x - 1), Random.Range(1, gridSize.y));
+                } while (tileList[(auxFoodPos.y * gridSize.y) + auxFoodPos.x].HasFood());
+                tileList[(auxFoodPos.y * gridSize.y) + auxFoodPos.x].SetFood();
+            }
+
+        }
+        
+        public static bool IsValidPosition(Vector2Int checkPos)
+        {
+            return !(checkPos.y < 0 || checkPos.y > gridSize.y);
         }
 
 
